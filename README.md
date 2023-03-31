@@ -3,7 +3,7 @@
   <img src="https://user-images.githubusercontent.com/49209628/229127418-a3e1764a-5999-4c6e-af16-cff78e4e7054.png" alt="logo" width="150" />
 </h1>
 
-<p>
+<p align="center">
   Kanban Method is a set of principles and practices that aims to provide an evolution in the way your team (or company) delivers value in the services provided. 
   In Kanban, we eliminate waste and improve the continuous delivery of value through a pull system.
 </p>
