@@ -14,7 +14,7 @@
 <img src="https://img.shields.io/github/languages/count/censuradho/kanban?style=for-the-badge"/>
 </p>
 
-![image](https://user-images.githubusercontent.com/49209628/229129552-d60df770-39a3-45d4-a636-ad600e7008e4.png)
+![image](https://user-images.githubusercontent.com/49209628/229138728-7ccf5ede-e067-4dc2-8a39-49a68de5ea4c.png)
 
 ## ✨ Features
 
