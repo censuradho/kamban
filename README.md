@@ -21,7 +21,7 @@
 ## Web application
 
 - 🔛 fully responsive
-- 📦 managment of board, columns & tasks
+- 📦 manage board, columns & tasks
 - 🌙☀️ switch between dark & light mode
 
 
