@@ -6,7 +6,7 @@ Kanban Method is a set of principles and practices that aims to provide an evolu
 In Kanban, we eliminate waste and improve the continuous delivery of value through a pull system.
 
 
-<p align="center">
+<p align="left">
 <img src="https://img.shields.io/github/last-commit/censuradho/kanban?style=for-the-badge"/>&nbsp;&nbsp;&nbsp;
 <img src="https://img.shields.io/github/repo-size/censuradho/kanban?style=for-the-badge"/>&nbsp;&nbsp;&nbsp;
 <img src="https://img.shields.io/github/languages/count/censuradho/kanban?style=for-the-badge"/>
@@ -14,5 +14,23 @@ In Kanban, we eliminate waste and improve the continuous delivery of value throu
 
 ![image](https://user-images.githubusercontent.com/49209628/229129552-d60df770-39a3-45d4-a636-ad600e7008e4.png)
 
-## ✅ Features
--  
+## ✨ Features
+
+## Web application
+
+- 🔛 fully responsive
+- 📦 managment of board, columns & tasks
+- 🌙☀️ switch between dark & light mode
+
+
+## 📦 Install
+
+### Backend
+TODO:
+
+### Web application
+TODO:
+
+## 💫 Roadmap
+
+Check our issues page for more details about what we're building.
