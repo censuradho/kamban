@@ -12,5 +12,7 @@ In Kanban, we eliminate waste and improve the continuous delivery of value throu
 <img src="https://img.shields.io/github/languages/count/censuradho/kanban?style=for-the-badge"/>
 </p>
 
+![image](https://user-images.githubusercontent.com/49209628/229129552-d60df770-39a3-45d4-a636-ad600e7008e4.png)
+
 ## ✅ Features
--  Kanban Board: It is possible to create, edit and update kanban boards, as well as their columns and tasks
+-  
