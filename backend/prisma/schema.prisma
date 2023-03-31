@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Task {
+  id String @id @default(uuid())
+  name String
+
+  description String?
+
+  column Column @relation(references: [id], fields: [column_id], onDelete: Cascade)
+  column_id String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  @@map("tasks")
+}
+
+model Column {
+  id String @id @default(uuid())
+  name String
+
+  position Int
+
+  tasks Task[]
+  kamban Kamban @relation(references: [id], fields: [kamban_id], onDelete: Cascade)
+  kamban_id String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@map("columns")
+}
+
+model Kamban {
+  id String @id @default(uuid())
+  name String
+
+  columns Column[]
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  @@map("kamban_boards")
+}
