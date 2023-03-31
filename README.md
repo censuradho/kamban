@@ -35,4 +35,4 @@ TODO:
 
 ## 💫 Roadmap
 
-Check our issues page for more details about what we're building.
+Check our [issues](https://github.com/censuradho/kanban/issues) page for more details about what we're building.
