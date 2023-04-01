@@ -108,12 +108,14 @@ export function KambanLayout () {
       <li key={task.id}>
         <TaskCard 
           data={task}
+          columnId={column.id}
         />
       </li>
     ))
 
     return (
       <Column
+        kambanId={kamban.id}
         taskAmount={renderTasks?.length || 0}
         key={column.id}
         data={column}

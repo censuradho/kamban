@@ -5,13 +5,18 @@ import { useDrag } from '@/hooks/useDrag'
 
 export function TaskCard (props: TaskCardProps) {
   const {
-    data
+    data,
+    columnId
   } = props
 
   const [{
     isDragging
   }, ref] = useDrag({
-    name: data.id
+    name: data.id,
+    payload: {
+      columnId,
+      taskId: data.id
+    }
   })
 
 

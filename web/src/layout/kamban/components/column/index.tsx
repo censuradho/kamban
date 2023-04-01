@@ -1,17 +1,30 @@
 import { Box, ButtonIcon, Dropdown, Icon, Typography } from '@/components'
 import * as Styles from './styles'
 import { ColumnProps } from './types'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useEffect, useState } from 'react'
+import { useDrop } from '@/hooks'
+import { taskService } from '@/services/api/kamban/task'
+import { columnService } from '@/services/api/kamban/column'
 
 export function Column (props: PropsWithChildren<ColumnProps>) {
   const {
     data,
     taskAmount,
-    children
+    children,
+    kambanId
   } = props
 
+  const [payload, setPayload] = useState(null)
+  
+  const [{
+    isOver,
+  }, ref] = useDrop({
+    onDrop: setPayload
+  })
+
+
   return (
-    <Styles.Container>
+    <Styles.Container ref={ref}>
       <Styles.Header>
         <Box justifyContent="space-between" alignItems="center">
           <Typography 
