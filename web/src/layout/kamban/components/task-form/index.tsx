@@ -7,9 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Styles from './styles'
 import { TaskFormData, TaskFormProps } from './types'
 import { taskFormSchemaValidation } from './validations'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useBoolean } from '@/hooks'
 import { taskService } from '@/services/api/kamban/task'
+import { columnService } from '@/services/api/kamban/column'
 
 export function TaskForm (props: TaskFormProps) {
   const {
@@ -32,23 +33,37 @@ export function TaskForm (props: TaskFormProps) {
   })
 
   const [isLoading, toggleIsLoading] = useBoolean(false)
+  const [toColumnId, setToColumnId] = useState('')
 
   const onSubmit = async (payload: TaskFormData) => {
     try {
       toggleIsLoading()
 
-      if (taskToEdit) {
+      const isMovingCrossColumn = toColumnId !== columnId && taskToEdit && columnId
+      const isEditing = !!taskToEdit
+      const isCreating = !!columnId && !isEditing
+
+      if (isEditing) {
         await taskService.update(taskToEdit.id, payload)
       }
 
-      if (columnId) {
+      if (isCreating) {
         await taskService.create(columnId, payload)
       }
+      
+      if (isMovingCrossColumn) {
+        await columnService.moveTask(columnId, taskToEdit.id, toColumnId)
+      }
+
       reset()
       onSubmitComplete?.()
     } finally {
       toggleIsLoading()
     }
+  }
+
+  const handleOpenChange = async (open: boolean) => {
+    onOpenChange?.(open)
   }
 
   useEffect(() => {
@@ -64,7 +79,7 @@ export function TaskForm (props: TaskFormProps) {
   return (
     <Styles.Root 
       open={open} 
-      onOpenChange={onOpenChange}
+      onOpenChange={handleOpenChange}
     >
       <Styles.Portal>
         <Styles.Overlay />
@@ -103,6 +118,7 @@ export function TaskForm (props: TaskFormProps) {
                 control={control}
                 name="columnId"
                 defaultValue={columnId}
+                onValueChange={setToColumnId}
                 label="Current Status"
                 options={
                   columns?.map(column => ({
