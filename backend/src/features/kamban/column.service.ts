@@ -12,7 +12,7 @@ import { TaskService } from './task.service';
 export class ColumnService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly kambanService: KambanService, // private readonly taskService: TaskService,
+    private readonly kambanService: KambanService,
   ) {}
 
   async create(kambanId: string, payload: CreateColumnDto) {
@@ -123,6 +123,8 @@ export class ColumnService {
   }
 
   async moveTaskTo(fromColumnId: string, taskId: string, toColumnId: string) {
+    if (fromColumnId === toColumnId) return;
+
     const column = await this.prisma.column.findFirst({
       where: {
         id: fromColumnId,
@@ -134,20 +136,14 @@ export class ColumnService {
       },
     });
 
-    if (!column) throw new ForbiddenException(COLUMN_ERROR_MESSAGES.NOT_FOUND);
+    if (!column)
+      throw new ForbiddenException(COLUMN_ERROR_MESSAGES.FROM_COLUMN_NOT_FOUND);
 
     await this.findById(toColumnId);
 
-    await this.prisma.column.update({
+    const task = await this.prisma.task.findUnique({
       where: {
-        id: toColumnId,
-      },
-      data: {
-        tasks: {
-          connect: {
-            id: taskId,
-          },
-        },
+        id: taskId,
       },
     });
 
@@ -157,8 +153,25 @@ export class ColumnService {
       },
       data: {
         tasks: {
-          disconnect: {
+          delete: {
             id: taskId,
+          },
+        },
+      },
+    });
+
+    const { created_at, description, id, name } = task;
+
+    await this.prisma.task.create({
+      data: {
+        created_at,
+        description,
+        id,
+        name,
+        updated_at: new Date(),
+        column: {
+          connect: {
+            id: toColumnId,
           },
         },
       },
