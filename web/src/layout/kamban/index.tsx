@@ -112,6 +112,7 @@ export function KambanLayout () {
           onEdit={() => {
             setTaskToEdit(task)
             toggleIsOpenTaskForm()
+            setColumnToRelateTask(column.id)
           }}
           onDelete={() => setTaskToDelete(task)}
         />
@@ -130,6 +131,10 @@ export function KambanLayout () {
         }}
         onDelete={() => {
           setColumnToDelete(column)
+        }}
+        onClickToAddTask={() => {
+          toggleIsOpenTaskForm()
+          setColumnToRelateTask(column.id)
         }}
       >{renderTasks}</Column>
     )

@@ -6,4 +6,5 @@ export interface ColumnProps {
   onMoveTaskCrossColumn?: () => void
   onEdit?: () => void
   onDelete?: () => void
+  onClickToAddTask?: () => void
 }
