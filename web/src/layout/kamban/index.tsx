@@ -5,11 +5,11 @@ import { taskService } from '@/services/api/kamban/task'
 import { Task, UpdateTask } from '@/services/api/kamban/types'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { KambanNameForm, TaskForm } from './components'
+import { Column, KambanNameForm, TaskCard, TaskForm } from './components'
 import * as Styles from './styles'
 import { ColumnForm } from './components/column-form'
 import { columnService } from '@/services/api/kamban/column'
-import { Column } from '@/context/board/types'
+import { Column as IColumn } from '@/context/board/types'
 import { kambanService } from '@/services/api/kamban'
 import { paths } from '@/constants/routes'
 
@@ -22,10 +22,10 @@ export function KambanLayout () {
   const [isOpenDeleteBoardModal, toggleIsOpenDeleteBoardModal] = useBoolean()
 
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null)
-  const [columnToDelete, setColumnToDelete] = useState<Column | null>(null)
+  const [columnToDelete, setColumnToDelete] = useState<IColumn | null>(null)
 
   const [taskToEdit, setTaskToEdit] = useState<Task | null>(null)
-  const [columnToEdit, setColumnToEdit] = useState<Column | null>(null)
+  const [columnToEdit, setColumnToEdit] = useState<IColumn | null>(null)
 
   const [columnToRelateTask, setColumnToRelateTask] = useState('')
 
@@ -106,101 +106,32 @@ export function KambanLayout () {
 
     const renderTasks = column?.tasks?.map(task => (
       <li key={task.id}>
-        <Styles.Task>
-          <Box flexDirection="column" gap={0.5}>
-            <Typography as="strong" size="sm" color="text" fontWeight="600">{task.name}</Typography>
-            <Typography as="p" size="xsm" color="text">{task.description}</Typography>
-          </Box>
-          <Dropdown
-            options={[
-              {
-                label: (
-                  <Box gap={1} alignItems="center">
-                    <Icon name="edit"  size={15} color="heading" />
-                    <Typography color="heading">Edit Task</Typography>
-                  </Box>
-                ),
-                onClick: () => {
-                  setTaskToEdit(task)
-                  toggleIsOpenTaskForm()
-                }
-              },
-              {
-                label: (
-                  <Box gap={1} alignItems="center">
-                    <Icon name="trash" color="error" size={15} />
-                    <Typography color="error">Delete Task</Typography>
-                  </Box>
-                ),
-                onClick: () => setTaskToDelete(task)
-              },
-            ]}
-          >
-            <ButtonIcon
-              label="menu"
-              icon={{
-                name: 'verticalDots'
-              }}
-            />
-          </Dropdown>
-        </Styles.Task>
+        <TaskCard 
+          data={task}
+          columnId={column.id}
+          onEdit={() => {
+            setTaskToEdit(task)
+            toggleIsOpenTaskForm()
+          }}
+          onDelete={() => setTaskToDelete(task)}
+        />
       </li>
     ))
 
     return (
-      <Styles.Column
+      <Column
+        taskAmount={renderTasks?.length || 0}
         key={column.id}
-      >
-        <Styles.ColumnHeader>
-          <Box justifyContent="space-between" alignItems="center">
-            <Typography 
-              color="heading"
-              fontWeight="600"
-            >{`${column.name} (${renderTasks?.length || 0})`}</Typography>
-            <Dropdown
-              options={[
-                {
-                  label: (
-                    <Box gap={1} alignItems="center">
-                      <Icon name="edit"  size={15} color="heading" />
-                      <Typography color="heading">Edit column</Typography>
-                    </Box>
-                  ),
-                  onClick: () => {
-                    setColumnToEdit(column)
-                    toggleIsOpenColumnForm()
-                  }
-                },
-                {
-                  label: (
-                    <Box gap={1} alignItems="center">
-                      <Icon name="trash" color="error" size={15} />
-                      <Typography color="error">Delete column</Typography>
-                    </Box>
-                  ),
-                  onClick: () => setColumnToDelete(column)
-                },
-              ]}
-            >
-              <ButtonIcon
-                label="menu" 
-                icon={{ 
-                  name: 'verticalDots' 
-                }} 
-              />
-            </Dropdown>
-          </Box>
-        </Styles.ColumnHeader>
-        <Styles.ColumnBody>{renderTasks}</Styles.ColumnBody>
-        <Styles.ColumnFooter>
-          <Styles.ColumnAddTaskButton 
-            onClick={() => {
-              toggleIsOpenTaskForm()
-              setColumnToRelateTask(column.id)
-            }}
-          >+ Add item</Styles.ColumnAddTaskButton>
-        </Styles.ColumnFooter>
-      </Styles.Column>
+        data={column}
+        onMoveTaskCrossColumn={() => findKambanById(id as string)}
+        onEdit={() => {
+          setColumnToEdit(column)
+          toggleIsOpenColumnForm()
+        }}
+        onDelete={() => {
+          setColumnToDelete(column)
+        }}
+      >{renderTasks}</Column>
     )
   })
 

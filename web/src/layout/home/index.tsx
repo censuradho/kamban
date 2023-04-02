@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Box, Button, Typography } from '@/components'
+import { Box, Button, DragNDrop, Typography } from '@/components'
 import { paths } from '@/constants/routes'
 import { kambanService } from '@/services/api/kamban'
 import { Kamban } from '@/services/api/kamban/types'
@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { Header } from '../components'
 
 import * as Styles from './styles'
+import { useDrag } from '@/hooks/useDrag'
 
 export function HomeLayout () {
   const [kambans, setKambans] = useState<Kamban[]>([])

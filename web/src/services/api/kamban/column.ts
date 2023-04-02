@@ -27,9 +27,15 @@ const move = async (payload: MovePayload) => {
   await api.patch(`/kamban/${kambanId}/column/${columnId}/move/${position}`)
 }
 
+
+export const moveTask = async (fromColumnId: string, taskId: string, toColumnId: string) => {
+  await api.patch(`/kamban/column/${fromColumnId}/task/${taskId}/move/${toColumnId}`)
+}
+
 export const columnService = {
   create,
   update,
   delete: deleteColumn,
-  move
+  move,
+  moveTask
 }

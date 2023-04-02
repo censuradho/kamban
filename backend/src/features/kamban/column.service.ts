@@ -6,6 +6,7 @@ import { CreateColumnDto } from './dto/column/create';
 import { UpdateColumnDto } from './dto/column/update';
 import { COLUMN_ERROR_MESSAGES } from './errors';
 import { KambanService } from './kamban.service';
+import { TaskService } from './task.service';
 
 @Injectable()
 export class ColumnService {
@@ -117,6 +118,62 @@ export class ColumnService {
       },
       data: {
         position: to,
+      },
+    });
+  }
+
+  async moveTaskTo(fromColumnId: string, taskId: string, toColumnId: string) {
+    if (fromColumnId === toColumnId) return;
+
+    const column = await this.prisma.column.findFirst({
+      where: {
+        id: fromColumnId,
+        tasks: {
+          some: {
+            id: taskId,
+          },
+        },
+      },
+    });
+
+    if (!column)
+      throw new ForbiddenException(COLUMN_ERROR_MESSAGES.FROM_COLUMN_NOT_FOUND);
+
+    await this.findById(toColumnId);
+
+    const task = await this.prisma.task.findUnique({
+      where: {
+        id: taskId,
+      },
+    });
+
+    await this.prisma.column.update({
+      where: {
+        id: fromColumnId,
+      },
+      data: {
+        tasks: {
+          delete: {
+            id: taskId,
+          },
+        },
+      },
+    });
+
+    const { created_at, description, id, name } = task;
+
+    await this.prisma.task.create({
+      data: {
+        created_at,
+        description,
+        id,
+        name,
+        updated_at: new Date(),
+        column: {
+          connect: {
+            id: toColumnId,
+          },
+        },
       },
     });
   }
