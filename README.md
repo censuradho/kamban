@@ -23,7 +23,7 @@
 - 🔛 fully responsive
 - 📦 manage board, columns & tasks
 - 🌙☀️ switch between dark & light mode
-
+- 🤝 Drag n' Drop tasks
 
 ## 📦 Install
 
