@@ -7,6 +7,8 @@ export function TaskCard (props: TaskCardProps) {
   const {
     data,
     columnId,
+    onDelete,
+    onEdit
   } = props
 
   const [{
@@ -36,10 +38,7 @@ export function TaskCard (props: TaskCardProps) {
                 <Typography color="heading">Edit Task</Typography>
               </Box>
             ),
-            onClick: () => {
-              // setTaskToEdit(task)
-              // toggleIsOpenTaskForm()
-            }
+            onClick: onEdit
           },
           {
             label: (
@@ -48,7 +47,7 @@ export function TaskCard (props: TaskCardProps) {
                 <Typography color="error">Delete Task</Typography>
               </Box>
             ),
-            // onClick: () => setTaskToDelete(task)
+            onClick: onDelete
           },
         ]}
       >

@@ -109,6 +109,11 @@ export function KambanLayout () {
         <TaskCard 
           data={task}
           columnId={column.id}
+          onEdit={() => {
+            setTaskToEdit(task)
+            toggleIsOpenTaskForm()
+          }}
+          onDelete={() => setTaskToDelete(task)}
         />
       </li>
     ))
@@ -119,63 +124,15 @@ export function KambanLayout () {
         key={column.id}
         data={column}
         onMoveTaskCrossColumn={() => findKambanById(id as string)}
+        onEdit={() => {
+          setColumnToEdit(column)
+          toggleIsOpenColumnForm()
+        }}
+        onDelete={() => {
+          setColumnToDelete(column)
+        }}
       >{renderTasks}</Column>
     )
-    // return (
-    //   <Styles.Column
-    //     key={column.id}
-    //   >
-    //     <Styles.ColumnHeader>
-    //       <Box justifyContent="space-between" alignItems="center">
-    //         <Typography 
-    //           color="heading"
-    //           fontWeight="600"
-    //         >{`${column.name} (${renderTasks?.length || 0})`}</Typography>
-    //         <Dropdown
-    //           options={[
-    //             {
-    //               label: (
-    //                 <Box gap={1} alignItems="center">
-    //                   <Icon name="edit"  size={15} color="heading" />
-    //                   <Typography color="heading">Edit column</Typography>
-    //                 </Box>
-    //               ),
-    //               onClick: () => {
-    //                 setColumnToEdit(column)
-    //                 toggleIsOpenColumnForm()
-    //               }
-    //             },
-    //             {
-    //               label: (
-    //                 <Box gap={1} alignItems="center">
-    //                   <Icon name="trash" color="error" size={15} />
-    //                   <Typography color="error">Delete column</Typography>
-    //                 </Box>
-    //               ),
-    //               onClick: () => setColumnToDelete(column)
-    //             },
-    //           ]}
-    //         >
-    //           <ButtonIcon
-    //             label="menu" 
-    //             icon={{ 
-    //               name: 'verticalDots' 
-    //             }} 
-    //           />
-    //         </Dropdown>
-    //       </Box>
-    //     </Styles.ColumnHeader>
-    //     <Styles.ColumnBody>{renderTasks}</Styles.ColumnBody>
-    //     <Styles.ColumnFooter>
-    //       <Styles.ColumnAddTaskButton 
-    //         onClick={() => {
-    //           toggleIsOpenTaskForm()
-    //           setColumnToRelateTask(column.id)
-    //         }}
-    //       >+ Add item</Styles.ColumnAddTaskButton>
-    //     </Styles.ColumnFooter>
-    //   </Styles.Column>
-    // )
   })
 
   return (

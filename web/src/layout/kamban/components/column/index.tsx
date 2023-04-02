@@ -10,7 +10,9 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
     data,
     taskAmount,
     children,
-    onMoveTaskCrossColumn
+    onMoveTaskCrossColumn,
+    onDelete,
+    onEdit
   } = props
   
   const [{
@@ -45,10 +47,7 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
                     <Typography color="heading">Edit column</Typography>
                   </Box>
                 ),
-                onClick: () => {
-                  // setColumnToEdit(column)
-                  // toggleIsOpenColumnForm()
-                }
+                onClick: onEdit
               },
               {
                 label: (
@@ -57,7 +56,7 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
                     <Typography color="error">Delete column</Typography>
                   </Box>
                 ),
-                // onClick: () => setColumnToDelete(column)
+                onClick: onDelete
               },
             ]}
           >

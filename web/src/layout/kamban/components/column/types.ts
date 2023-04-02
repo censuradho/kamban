@@ -4,4 +4,6 @@ export interface ColumnProps {
   data: Column
   taskAmount: number
   onMoveTaskCrossColumn?: () => void
+  onEdit?: () => void
+  onDelete?: () => void
 }
