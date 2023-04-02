@@ -9,9 +9,9 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
   const {
     data,
     taskAmount,
-    children
+    children,
+    onMoveTaskCrossColumn
   } = props
-
   
   const [{
     isOver,
@@ -20,6 +20,7 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
       if (payload.columnId === data.id) return;
 
       await columnService.moveTask(payload.columnId, payload.taskId, data.id)
+      onMoveTaskCrossColumn?.()
     }
   })
 

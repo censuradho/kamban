@@ -6,7 +6,7 @@ import { useDrag } from '@/hooks/useDrag'
 export function TaskCard (props: TaskCardProps) {
   const {
     data,
-    columnId
+    columnId,
   } = props
 
   const [{

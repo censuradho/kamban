@@ -118,6 +118,7 @@ export function KambanLayout () {
         taskAmount={renderTasks?.length || 0}
         key={column.id}
         data={column}
+        onMoveTaskCrossColumn={() => findKambanById(id as string)}
       >{renderTasks}</Column>
     )
     // return (
