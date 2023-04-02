@@ -1,26 +1,28 @@
 import { Box, ButtonIcon, Dropdown, Icon, Typography } from '@/components'
+import { useDrop } from '@/hooks'
+import { columnService } from '@/services/api/kamban/column'
+import { PropsWithChildren } from 'react'
 import * as Styles from './styles'
 import { ColumnProps } from './types'
-import { PropsWithChildren, useEffect, useState } from 'react'
-import { useDrop } from '@/hooks'
-import { taskService } from '@/services/api/kamban/task'
-import { columnService } from '@/services/api/kamban/column'
 
 export function Column (props: PropsWithChildren<ColumnProps>) {
   const {
     data,
     taskAmount,
-    children,
-    kambanId
+    children
   } = props
 
-  const [payload, setPayload] = useState(null)
   
   const [{
     isOver,
-  }, ref] = useDrop({
-    onDrop: setPayload
+  }, ref] = useDrop<{ columnId: string, taskId: string }>({
+    onDrop: async payload => {
+      if (payload.columnId === data.id) return;
+
+      await columnService.moveTask(payload.columnId, payload.taskId, data.id)
+    }
   })
+
 
 
   return (

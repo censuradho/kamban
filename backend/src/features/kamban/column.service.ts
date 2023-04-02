@@ -6,12 +6,13 @@ import { CreateColumnDto } from './dto/column/create';
 import { UpdateColumnDto } from './dto/column/update';
 import { COLUMN_ERROR_MESSAGES } from './errors';
 import { KambanService } from './kamban.service';
+import { TaskService } from './task.service';
 
 @Injectable()
 export class ColumnService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly kambanService: KambanService,
+    private readonly kambanService: KambanService, // private readonly taskService: TaskService,
   ) {}
 
   async create(kambanId: string, payload: CreateColumnDto) {
@@ -117,6 +118,49 @@ export class ColumnService {
       },
       data: {
         position: to,
+      },
+    });
+  }
+
+  async moveTaskTo(fromColumnId: string, taskId: string, toColumnId: string) {
+    const column = await this.prisma.column.findFirst({
+      where: {
+        id: fromColumnId,
+        tasks: {
+          some: {
+            id: taskId,
+          },
+        },
+      },
+    });
+
+    if (!column) throw new ForbiddenException(COLUMN_ERROR_MESSAGES.NOT_FOUND);
+
+    await this.findById(toColumnId);
+
+    await this.prisma.column.update({
+      where: {
+        id: toColumnId,
+      },
+      data: {
+        tasks: {
+          connect: {
+            id: taskId,
+          },
+        },
+      },
+    });
+
+    await this.prisma.column.update({
+      where: {
+        id: fromColumnId,
+      },
+      data: {
+        tasks: {
+          disconnect: {
+            id: taskId,
+          },
+        },
       },
     });
   }

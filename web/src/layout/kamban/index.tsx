@@ -115,7 +115,6 @@ export function KambanLayout () {
 
     return (
       <Column
-        kambanId={kamban.id}
         taskAmount={renderTasks?.length || 0}
         key={column.id}
         data={column}

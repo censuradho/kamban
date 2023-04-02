@@ -13,6 +13,7 @@ import {
 import { ColumnService } from './column.service';
 import { CreateColumnDto } from './dto/column/create';
 import { MoveParamsDto } from './dto/column/move';
+import { MoveTaskToColumnParams } from './dto/column/moveTaskToColumnParams';
 import { CreateTaskDto } from './dto/column/task/create';
 import { UpdateTaskDto } from './dto/column/task/update';
 import { UpdateColumnDto } from './dto/column/update';
@@ -79,6 +80,12 @@ export class KambanController {
     const { kambanId, id, position } = params;
 
     return this.columnService.move(kambanId, id, position);
+  }
+
+  @Patch('column/:fromColumnId/task/:taskId/move/:toColumnId')
+  async moveTaskToColumn(@Param() params: MoveTaskToColumnParams) {
+    const { fromColumnId, taskId, toColumnId } = params;
+    await this.columnService.moveTaskTo(fromColumnId, taskId, toColumnId);
   }
 
   @Post('column/:id/task')
