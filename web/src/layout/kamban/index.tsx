@@ -12,9 +12,14 @@ import { columnService } from '@/services/api/kamban/column'
 import { Column as IColumn } from '@/context/board/types'
 import { kambanService } from '@/services/api/kamban'
 import { paths } from '@/constants/routes'
+import { Head } from '@/components/head'
 
 export function KambanLayout () {
-  const { findKambanById, kamban } = useKamban()
+  const { 
+    findKambanById, 
+    kamban,
+    updateCurrentKanban 
+  } = useKamban()
 
   const [isOpenTaskForm, toggleIsOpenTaskForm] = useBoolean(false)
   const [isLoading, toggleIsLoading] = useBoolean(false)
@@ -30,6 +35,16 @@ export function KambanLayout () {
   const [columnToRelateTask, setColumnToRelateTask] = useState('')
 
   const router = useRouter()
+
+  const tasksAmount = kamban
+    ?.columns
+    ?.map(value => value?.tasks)
+    .filter(value => !!value)
+    .reduce((prev, next) => [
+      ...(prev || []),
+      ...(next || [])
+    ], [])
+    ?.length || 0
 
   const { id } = router.query
 
@@ -142,6 +157,10 @@ export function KambanLayout () {
 
   return (
     <>
+      <Head 
+        title={`${kamban?.name} (${tasksAmount})`}
+        description={`board ${kamban?.name}`}
+      />
       {isOpenTaskForm && (
         <TaskForm 
           open={isOpenTaskForm}
@@ -205,7 +224,12 @@ export function KambanLayout () {
             {kamban?.name && (
               <KambanNameForm 
                 title={kamban?.name}
-                onBlur={name => kambanService.update(id as string, { name })}
+                onBlur={async name => {
+                  await kambanService.update(id as string, { name })
+                  updateCurrentKanban({
+                    name
+                  })
+                }}
               />
             )}
           </Box>

@@ -14,11 +14,19 @@ export function KambanProvider ({ children }: PropsWithChildren) {
     setKamban(data)
   }, [])
 
+  const handleUpdateCurrentKanban = (payload: Partial<Omit<Kamban, 'id'>>) => {
+    setKamban(prevState => prevState && ({
+      ...prevState,
+      ...payload
+    }))
+  }
+
   return (
     <KambanContext.Provider
       value={{
         kamban,
-        findKambanById
+        findKambanById,
+        updateCurrentKanban: handleUpdateCurrentKanban
       }}
     >
       {children}

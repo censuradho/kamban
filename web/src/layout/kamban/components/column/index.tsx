@@ -21,13 +21,10 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
   }, ref] = useDrop<{ columnId: string, taskId: string }>({
     onDrop: async payload => {
       if (payload.columnId === data.id) return;
-
       await columnService.moveTask(payload.columnId, payload.taskId, data.id)
       onMoveTaskCrossColumn?.()
     }
   })
-
-
 
   return (
     <Styles.Container ref={ref}>

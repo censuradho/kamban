@@ -2,10 +2,11 @@ import { VariantProps } from '@stitches/react'
 import { ReactNode } from 'react'
 
 import { Typography } from './styles'
-import { fontSizes, colors } from '@/constants/theme'
+import { fontSizes } from '@/constants/theme'
+import { darkColors } from '@/constants/theme/dark/colors'
 
 export type VariantFontSize = Record<keyof typeof fontSizes, { fontSize: keyof typeof fontSizes }>
-export type VariantColors = Record<keyof typeof colors, { color: keyof typeof colors }>
+export type VariantColors = Record<keyof typeof darkColors, { color: keyof typeof darkColors }>
 
 type Variant = VariantProps<typeof Typography>
 
