@@ -12,7 +12,8 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
     children,
     onMoveTaskCrossColumn,
     onDelete,
-    onEdit
+    onEdit,
+    onClickToAddTask
   } = props
   
   const [{
@@ -74,6 +75,7 @@ export function Column (props: PropsWithChildren<ColumnProps>) {
       </Styles.Body>
       <Styles.Footer>
         <Styles.AddTaskButton 
+          onClick={onClickToAddTask}
           // onClick={() => {
           //   toggleIsOpenTaskForm()
           //   setColumnToRelateTask(column.id)

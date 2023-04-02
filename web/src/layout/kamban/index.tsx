@@ -132,6 +132,10 @@ export function KambanLayout () {
         onDelete={() => {
           setColumnToDelete(column)
         }}
+        onClickToAddTask={() => {
+          toggleIsOpenTaskForm()
+          setColumnToRelateTask(column.id)
+        }}
       >{renderTasks}</Column>
     )
   })
