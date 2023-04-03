@@ -30,10 +30,57 @@
 - 🌙☀️ switch between dark & light mode
 - 🤝 Drag n' Drop tasks
 
-## 📦 Install
+## 🚀 Getting Started
 
-### Backend
-TODO:
+### Prerequisites
+- [Node.js](https://nodejs.org/en)
+
+### Clone
+
+Clone this repo to your local machine using:
+
+```bash
+git clone https://github.com/censuradho/kanban.git
+```
+
+### Setup
+
+#### Backend
+
+all process takes place in backend folder
+
+##### Environment vars
+
+Create a `.env` file with follow content
+
+DATABASE_URL="file:./dev.db"
+
+
+##### Install dependencies
+
+```
+yarn
+```
+
+or
+
+```bash
+ npm install
+```
+
+##### Running migrations
+
+```bash
+yarn prisma migrate dev
+```
+
+or 
+
+```bash
+npx prisma migrate dev
+```
+
+If you open browser on follow url [http://localhost:3333/](http://localhost:3333/), you should see a hello world message.
 
 ### Web application
 TODO:
