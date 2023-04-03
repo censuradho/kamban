@@ -4,7 +4,7 @@ import { ForbiddenException } from 'src/error-handlers/errors';
 import { ColumnService } from './column.service';
 import { CreateTaskDto } from './dto/column/task/create';
 import { UpdateTaskDto } from './dto/column/task/update';
-import { COLUMN_ERROR_MESSAGES, TASK_ERROR_MESSAGES } from './errors';
+import { TASK_ERROR_MESSAGES } from './errors';
 
 @Injectable()
 export class TaskService {
@@ -47,7 +47,7 @@ export class TaskService {
   async update(id: string, payload: UpdateTaskDto) {
     await this.findById(id);
 
-    const { name, description } = payload;
+    const { name, description, due_date } = payload;
 
     await this.prisma.task.update({
       where: {
@@ -56,6 +56,7 @@ export class TaskService {
       data: {
         name,
         description,
+        due_date,
       },
     });
   }
