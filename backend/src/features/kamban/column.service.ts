@@ -141,6 +141,12 @@ export class ColumnService {
 
     await this.findById(toColumnId);
 
+    const { column_id, ...task } = await this.prisma.task.findUnique({
+      where: {
+        id: taskId,
+      },
+    });
+
     await this.prisma.column.update({
       where: {
         id: fromColumnId,
@@ -153,18 +159,10 @@ export class ColumnService {
         },
       },
     });
-    const { id, created_at, column_id, ...task } =
-      await this.prisma.task.findUnique({
-        where: {
-          id: taskId,
-        },
-      });
 
     await this.prisma.task.create({
       data: {
         ...task,
-        created_at,
-        id,
         updated_at: new Date(),
         column: {
           connect: {
