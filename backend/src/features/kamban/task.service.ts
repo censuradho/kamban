@@ -34,6 +34,7 @@ export class TaskService {
       data: {
         name,
         description,
+        due_date: payload?.due_date,
         column: {
           connect: {
             id: columnId,
