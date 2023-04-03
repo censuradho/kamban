@@ -127,7 +127,7 @@ or
 npm run dev
 ```
 
-If you open browser on follow url [http://localhost:3000/](http://localhost:3333/), you should see the home screen.
+If you open browser on follow url [http://localhost:3000/](http://localhost:3000/), you should see the home screen.
 
 ## 💫 Roadmap
 
