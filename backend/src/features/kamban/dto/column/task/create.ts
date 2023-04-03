@@ -8,7 +8,7 @@ export class CreateTaskDto {
   @IsString()
   description?: string;
 
-  @IsString()
+  @IsOptional()
   @IsDateString()
   due_date?: string;
 }
