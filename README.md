@@ -23,7 +23,7 @@
 
 ## ✨ Features
 
-## Web application
+### Web application
 
 - 🔛 fully responsive
 - 📦 manage board, columns & tasks
