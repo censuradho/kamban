@@ -80,10 +80,54 @@ or
 npx prisma migrate dev
 ```
 
+##### Running development server
+
+```bash
+yarn start:dev
+```
+or
+
+```bash
+npm run start:dev
+```
+
 If you open browser on follow url [http://localhost:3333/](http://localhost:3333/), you should see a hello world message.
 
 ### Web application
-TODO:
+
+all process takes place in web folder
+
+
+##### Environment vars
+
+NEXT_PUBLIC_BACKEND_URL=http://localhost:3333
+
+you can see the full list of environment vars in the config/app.ts file
+
+##### Install dependencies
+
+```
+yarn
+```
+
+or
+
+```bash
+ npm install
+```
+
+##### Running development server
+
+```bash
+yarn dev
+```
+or
+
+```bash
+npm run dev
+```
+
+If you open browser on follow url [http://localhost:3000/](http://localhost:3333/), you should see the home screen.
 
 ## 💫 Roadmap
 
