@@ -4,8 +4,13 @@
 </h1>
 
 <p align="center">
-  Kanban Method is a set of principles and practices that aims to provide an evolution in the way your team (or company) delivers value in the services provided. 
-  In Kanban, we eliminate waste and improve the continuous delivery of value through a pull system.
+  Kanban is a project management tool that allows for the visualization and organization of tasks on an interactive board. With it, it's possible to create and track the progress of activities in different stages of a process, with a friendly and intuitive interface.
+</p>
+<p align="center">
+  The board is divided into columns that represent the process stages, such as "To do", "In progress" and "Done".
+</p>
+<p align="center">
+  The user can add cards to each column, representing the tasks that need to be completed. These cards can have a detailed description. From there, it's possible to move the cards between the columns as tasks are completed.
 </p>
 
 <p align="center">
