@@ -8,7 +8,7 @@ export const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  overflow: 'hidden'
+  overflow: 'hidden',
 })
 
 export const Header = styled('header', {

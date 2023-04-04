@@ -10,6 +10,7 @@ import { Header } from '../components'
 
 import * as Styles from './styles'
 import { useDrag } from '@/hooks/useDrag'
+import { KanbanForm } from '../kamban/components'
 
 export function HomeLayout () {
   const [kambans, setKambans] = useState<Kamban[]>([])
@@ -60,7 +61,9 @@ export function HomeLayout () {
                 <Typography size="xsm">{`${kambans.length} opens`}</Typography>
               </Box>
             </Box>
-            <Button onClick={handleCreateKamban}>New board</Button>
+            <KanbanForm>
+              <Button>New board</Button>
+            </KanbanForm>
           </Styles.Header>
           <Styles.List>{renderKambans}</Styles.List>
         </Styles.Content>
