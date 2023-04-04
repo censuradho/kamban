@@ -6,7 +6,8 @@ import {
 import {
   AiOutlineClose,
   AiOutlineMenu,
-  AiOutlineArrowLeft
+  AiOutlineArrowLeft,
+  AiOutlineDownload
 } from '@meronex/icons/ai';
 import {
   BsTrashFill
@@ -26,5 +27,6 @@ export const icons = {
   verticalDots: BiDotsVerticalRounded,
   menu: AiOutlineMenu,
   edit: MdModeEdit,
-  arrowLeft: AiOutlineArrowLeft
+  arrowLeft: AiOutlineArrowLeft,
+  download: AiOutlineDownload
 }

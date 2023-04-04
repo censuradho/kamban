@@ -13,6 +13,7 @@ import { Column as IColumn } from '@/context/board/types'
 import { kambanService } from '@/services/api/kamban'
 import { paths } from '@/constants/routes'
 import { Head } from '@/components/head'
+import { jsonToDownload } from '@/utils/helpers'
 
 export function KambanLayout () {
   const { 
@@ -243,6 +244,15 @@ export function KambanLayout () {
                   </Box>
                 ),
                 onClick: () => toggleIsOpenDeleteBoardModal()
+              },
+              {
+                label: (
+                  <Box gap={1} alignItems="center">
+                    <Icon name="download" size={15} />
+                    <Typography>Download data</Typography>
+                  </Box>
+                ),
+                onClick: () => jsonToDownload(kamban, `kanban-${new Date().toISOString()}.json`)
               },
             ]}
           >

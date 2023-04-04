@@ -41,6 +41,12 @@ export const resolvePath = (path: string, obj: Record<string, any>) => {
   return tempPath
 }
 
+export const jsonToDownload = async (data: any, filename: string) => {
+  const uri = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+
+  saveAs(uri, filename)
+}
+
 export function saveAs(uri: string, filename: string) {
 
   var link = document.createElement('a');
