@@ -12,10 +12,15 @@ export function Header () {
   const defaultChecked = currentTheme !== appSettings.theme.darkMode
   const checked = currentTheme === appSettings.theme.lightMode
 
+  const isDarkMode = currentTheme === appSettings.theme.darkMode
   return (
     <Styles.Container>
       <Link href={paths.home}>
-        <Image src="/logo-sm.svg" alt="Logo" width={150} height={40} style={{ objectFit: 'contain' }} />
+        {
+          isDarkMode 
+            ? <Image src="/logo-sm.svg" alt="Logo" width={150} height={40} style={{ objectFit: 'contain' }} />
+            : <Image src="/logo-lightmode.svg" alt="Logo" width={150} height={40} style={{ objectFit: 'contain' }} />
+        }
       </Link>
       <ThemeSwitcher
         checked={checked} 
